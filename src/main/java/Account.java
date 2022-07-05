@@ -1,8 +1,6 @@
 public class Account {
 
-    private String name;
-    private int minLength;
-    private int maxLength;
+    private final String name;
 
     public Account(String name) {
         this.name = name;
@@ -14,19 +12,15 @@ public class Account {
      * @return true - можно печатать; false - нельзя печатать
      */
     public boolean checkNameToEmboss() {
-        minLength = 3;
-        maxLength = 19;
-        try {
+        int minLength = 3;
+        int maxLength = 19;
+        if (name != null) {
             long spacesCount = name.chars().filter(ch -> ch == ' ').count();
             if (name.length() >= minLength && name.length() <= maxLength && spacesCount == 1) {
                 int indexSpace = name.indexOf(' ');
-                if (indexSpace != 0 && indexSpace != name.length() - 1) {
-                    return true;
-                }
+                return indexSpace != 0 && indexSpace != name.length() - 1;
             }
-            return false;
-        } catch (NullPointerException e) {
-            return false;
         }
+        return false;
     }
 }
